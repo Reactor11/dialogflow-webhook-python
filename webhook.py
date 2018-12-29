@@ -49,7 +49,7 @@ def ProcessJson(req):
         if('Train does not run on' in str(tag.contents[0])):
             b=str(tag.contents[0])
     if(b is not None):
-        json_response = JSONEncoder().encode({'Train_Status' : 'Not Running','queryResponseText' : b})
+        json_response = JSONEncoder().encode({ "text": ['Manas Bhardwaj']})
         return json_response
     else:
         info = list()
