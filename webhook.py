@@ -99,7 +99,7 @@ def ProcessJson(req):
             except:
                 j = "Details not available"
         
-        json_response = json.dumps({"Train_Status" : "Running", "queryResponseText" : {	"Arrival_Actual" : actual_arr,"Arrival_Delayed" : delayed_arr,"Info" : i,"Info1" : j}})
+        json_response = json.dumps({"Train_Status" : "Running", "queryResponseText" : {	"Arrival_Actual" : actual_arr,"Arrival_Delayed" : delayed_arr,"Info-where" : i,"Running-info" : j}})
         return json_response
 
 if __name__ == '__main__':
