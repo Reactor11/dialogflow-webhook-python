@@ -49,7 +49,8 @@ def ProcessJson(req):
         if('Train does not run on' in str(tag.contents[0])):
             b=str(tag.contents[0])
     if(b is not None):
-        json_response = json.dumps({"fulfillmentMessages":["simpleResponses":{"textToSpeech":b,"ssml":b,"displayText":b}]})
+        p = {"fulfillmentMessages":["simpleResponses":{"textToSpeech":b,"ssml":b,"displayText":b}]}
+        json_response = json.dumps(p)
         return json_response
     else:
         info = list()
@@ -100,7 +101,8 @@ def ProcessJson(req):
                 j = "Details not available"
         
         response = "Actual Arrival : " + str(actual_arr) +"\nDelayed Arrival : " + str(delayed_arr) + "\nTrain Info : " + str(i) + " . " + str(j)
-        json_response = json.dumps({"fulfillmentMessages":["simpleResponses":{"textToSpeech": response,"ssml": response,"displayText": response}]})
+        p = {"fulfillmentMessages":["simpleResponses":{"textToSpeech": response,"ssml": response,"displayText": response}]}
+        json_response = json.dumps(p)
         return json_response
 
 if __name__ == '__main__':
