@@ -50,8 +50,8 @@ def ProcessJson(req):
             b=str(tag.contents[0])
     if(b is not None):
         p = f'{"fulfillmentMessages":["simpleResponses":{"textToSpeech":{b},"ssml":{b},"displayText":{b}}]}'
-        #json_response = json.dumps(p)
-        return p
+        json_response = json.dumps(p)
+        return json_response
     else:
         info = list()
         arr = list()
@@ -102,8 +102,8 @@ def ProcessJson(req):
         
         response = "Actual Arrival : " + str(actual_arr) +"\nDelayed Arrival : " + str(delayed_arr) + "\nTrain Info : " + str(i) + " . " + str(j)
         p = f'{"fulfillmentMessages":["simpleResponses":{"textToSpeech": {response},"ssml": {response},"displayText": {response}}]}'
-        #json_response = json.dumps(p)
-        return p
+        json_response = json.dumps(p)
+        return json_response
 
 if __name__ == '__main__':
     port = int(os.getenv('PORT', 5000))
