@@ -99,7 +99,6 @@ def ProcessJson(req):
                 j = str(next(a)) + str(next(a))
             except:
                 j = "Details not available"
-
         response = "Actual Arrival : " + str(actual_arr) +"\nDelayed Arrival : " + str(delayed_arr) + "\nTrain Info : " + str(i) + " . " + str(j)
         p = {"fulfillmentMessages":[{"simpleResponses":{"textToSpeech": response,"ssml": response,"displayText": response}}]}
         json_response = p
