@@ -13,32 +13,32 @@ app = Flask(__name__)
 @app.route('/webhook', methods=['POST'])
 def webhook():
     req = request.get_json(silent = True , force = True)
-    
+
     res = ProcessJson(req)
     r = make_response(res)
     r.headers['Content-Type'] = 'application/json'
     return r
 
 def ProcessJson(req):
-    
+
     temp = req['queryResult']['parameters']['Get-Date']
     temp = temp.split('T')
     date = temp[0]
     train_number = req['queryResult']['parameters']['TrainNumber']
     stn_name = req['queryResult']['parameters']['Get-Station']
-    
+
     baseLink = 'https://erail.in/train-running-status/' + train_number
-    
+
     html = urllib.request.urlopen(baseLink).read()
     soup = BeautifulSoup(html,'html.parser')
     tags= soup('a')
     for tag in tags :
         if (stn_name in tag.contents[0]):
-            tempurl = tag.get('href', None ) 
+            tempurl = tag.get('href', None )
     del tags, html, soup
-    
+
     url = urllib.parse.urljoin(baseLink,tempurl) + '&date=' + date
-    
+
     html = urllib.request.urlopen(url).read()
     del url
     soup = BeautifulSoup(html,'html.parser')
@@ -49,7 +49,7 @@ def ProcessJson(req):
         if('Train does not run on' in str(tag.contents[0])):
             b=str(tag.contents[0])
     if(b is not None):
-        p = f'{"fulfillmentMessages":["simpleResponses":{"textToSpeech":{b},"ssml":{b},"displayText":{b}}]}'
+        p = {"fulfillmentMessages":["simpleResponses":{"textToSpeech":b,"ssml":b,"displayText":b}]}
         json_response = p
         return json_response
     else:
@@ -92,17 +92,17 @@ def ProcessJson(req):
                 del a,info
             except:
                  i = "Details Not Availabe"
-                
+
         if(info1 != []):
             try:
                 a = info1.strings
                 j = str(next(a)) + str(next(a))
             except:
                 j = "Details not available"
-        
+
         response = "Actual Arrival : " + str(actual_arr) +"\nDelayed Arrival : " + str(delayed_arr) + "\nTrain Info : " + str(i) + " . " + str(j)
-        p = f'{"fulfillmentMessages":["simpleResponses":{"textToSpeech": {response},"ssml": {response},"displayText": {response}}]}'
-        json_response = p 
+        p = {"fulfillmentMessages":["simpleResponses":{"textToSpeech": response,"ssml": response,"displayText": response}]}
+        json_response = p
         return json_response
 
 if __name__ == '__main__':
